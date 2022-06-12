@@ -18,6 +18,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Doing this to take advantage of the powerful features of dataBinding
+    Since the UI controller(Activity/fragment) hold references to the view binding it serves as an intermediary
+    class between the view model and the view in terms of communication.
+    This can be simplified by having the view(xml) hold a reference to view model hence making them have a more direct communication without the
+    UI controller. This means the UI controller can also be made more simplified by removing a lot of boiler plate code.
+    -->
+    <data>
+        <variable
+            name="gameViewModel"
+            type="com.example.android.guesstheword.screens.game.GameViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game_layout"
         android:layout_width="match_parent"
@@ -96,6 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/skip"
+            android:onClick="@{() -> gameViewModel.onSkip()}"
             android:theme="@style/SkipButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/correct_button"
@@ -117,6 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@string/got_it"
+            android:onClick="@{() -> gameViewModel.onCorrect()}"
             android:theme="@style/GoButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
